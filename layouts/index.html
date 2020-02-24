@@ -5,14 +5,11 @@
 and <code>post02.md</code>, and it does under 0.64 or lower.</p>
 <p>Under 0.65+, it ignores <code>post02.md</code>.</p>
 {{ range $key := slice "post01" "post02" }}
-  {{$.Scratch.Set "foo" (printf "%s.md" $key)}}
-  {{ with $.Site.GetPage "/posts"}}
-    {{ with .GetPage ($.Scratch.Get "foo") }}
+    {{ with site.GetPage $key }}
       <h3>{{ .Title }}</h3>
       <p>{{ .File.Path }}</p>
     {{end}}
-  {{end}}
-{{end}}
+ {{end}}
   </article>
   {{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of pages. */}}
   {{ $mainSections := .Site.Params.mainSections | default (slice "post") }}
